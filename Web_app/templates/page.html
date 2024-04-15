@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Suicide Detection</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div align="center">
+    <h2 style="color: rgb(39, 82, 161);">Using Bert model to identify suicide ideation in texts</h2>
+    <br>
+    <form action="{{ url_for('predict')}}" method="post">
+        <textarea name="input_text" class="input-box" placeholder="Input the text">{{ input_text_content }}</textarea>
+        <br>
+        <button type="submit" class="submit-button">Predict emotions</button>
+        <button name="clearbtn" type="button" class="clr-button">Clear</button>
+    </form>
+    <div class="display-area">
+        The probability of suicide is: {{ probability_display_area }}
+    </div>
+    
+    <div class="display-area">
+    Predicted emotion is: {{ prediction_display_area }}
+    </div>
+
+    <div class="alert-area">
+        Has suicide ideation. Please be careful!!
+    </div>
+</div>
+
+<style>
+.input-box{
+    display: block;
+    width: 60%;
+    height: 10vw;
+    white-space: pre-wrap;
+    font-size: 20px;
+    overflow: auto;
+    word-wrap: break-word;
+    outline:none;
+    resize: none;
+    border-radius: 8px;
+    border-color: rgb(99, 141, 220);
+    background-color: rgb(222, 232, 249);
+    color: rgb(39, 82, 161);
+}
+
+.input-box:hover,
+.input-box:focus
+{
+    box-shadow: 0px 0px 3px rgb(99, 141, 220);
+}
+
+.input-box::placeholder{
+    color: rgb(149, 169, 207);
+}
+
+.submit-button{
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    color: white;
+    border-color: rgb(99, 141, 220);
+    background-color: rgb(99, 141, 220);
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1.5px;
+}
+.submit-button:hover{
+    background-color: rgb(116, 153, 224);
+    border-color: rgb(116, 153, 224);
+}
+
+.clr-button{
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    color: rgb(39, 82, 161);
+    border-color: rgb(99, 141, 220);
+    background-color: rgb(222, 232, 249);
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1.5px;
+}
+.clr-button:hover{
+    background-color: rgb(156, 184, 233);
+    color: white;
+}
+
+.display-area{
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 3px;
+    border-color: {{ b_color }};
+    border-style: dashed;
+    background-color: {{ d_color }};
+    border-style: solid;
+    width: 40%;
+    min-width: 450px;
+    color: white;
+    visibility: {{ normal_display_area }};
+}
+
+.alert-area{
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 3px;
+    border-color: {{ b_color }};
+    border-style: dashed;
+    background-color: {{ d_color }};
+    border-style: solid;
+    width: 40%;
+    min-width: 450px;
+    color: white;
+    visibility: {{ alert_display_area }};
+}
+</style>
+
+<script>
+    document.querySelector('button[name="clearbtn"]').addEventListener('click', function(){
+        document.querySelector('textarea[name="input_text"]').value = '';
+    });
+</script>
+
+</body>
+</html>
