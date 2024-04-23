@@ -1,0 +1,334 @@
+% The document class supplies options to control rendering of some standard
+% features in the result.  The goal is for uniform style, so some attention 
+% to detail is *vital* with all fields.  Each field (i.e., text inside the
+% curly braces below, so the MEng text inside {MEng} for instance) should 
+% take into account the following:
+%
+% - author name       should be formatted as "FirstName LastName"
+%   (not "Initial LastName" for example),
+% - supervisor name   should be formatted as "Title FirstName LastName"
+%   (where Title is "Dr." or "Prof." for example),
+% - degree programme  should be "BSc", "MEng", "MSci", "MSc" or "PhD",
+% - dissertation title should be correctly capitalised (plus you can have
+%   an optional sub-title if appropriate, or leave this field blank),
+% - dissertation type should be formatted as one of the following:
+%   * for the MEng degree programme either "enterprise" or "research" to
+%     reflect the stream,
+%   * for the MSc  degree programme "$X/Y/Z$" for a project deemed to be
+%     X%, Y% and Z% of type I, II and III.
+% - year              should be formatted as a 4-digit year of submission
+%   (so 2014 rather than the academic year, say 2013/14 say).
+
+\documentclass[ % the name of the author
+                    author={Louis Wang},
+                % the name of the supervisor
+                supervisor={Dr. Qiang Liu},
+                % the degree programme
+                    degree={MSc},
+                % the dissertation    title (which cannot be blank)
+                     title={Identification of Suicide Ideation in Texts},
+                % the dissertation subtitle (which can    be blank)
+                  %subtitle={And those including an optional subtitle too, for good measure},
+                % the dissertation     type
+                      type={},
+                % the year of submission
+                      year={2024}]{dissertation}
+
+\begin{document}
+
+% =============================================================================
+
+% This macro creates the standard UoB title page by using information drawn
+% from the document class (meaning it is vital you select the correct degree 
+% title and so on).
+
+
+\maketitle
+
+% After the title page (which is a special case in that it is not numbered)
+% comes the front matter or preliminaries; this macro signals the start of
+% such content, meaning the pages are numbered with Roman numerals.
+
+\frontmatter
+
+% This macro creates the standard UoB declaration; on the printed hard-copy,
+% this must be physically signed by the author in the space indicated.
+
+\makedecl
+
+% LaTeX automatically generates a table of contents, plus associated lists 
+% of figures, tables and algorithms.  The former is a compulsory part of the
+% dissertation, but if you do not require the latter they can be suppressed
+% by simply commenting out the associated macro.
+
+\tableofcontents
+\listoffigures
+\listoftables
+\listofalgorithms
+\lstlistoflistings
+
+% The following sections are part of the front matter, but are not generated
+% automatically by LaTeX; the use of \chapter* means they are not numbered.
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Abstract}
+
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Supporting Technologies}
+
+\noindent
+This section lists the various technologies that I have used to implement and submit my dissertation project.
+
+\begin{itemize}
+
+\item Python was the main programming language used in this project. Code was developed with the version of Python 3.9. 
+The following Python packages were used in the project:
+
+\begin{itemize}
+      \item {\em Scikit-Learn} for machine learning model and matric calculation
+      \item {\em Pytorch} was used as the framework of deep learning model and for building, training and testing the neural networks
+      \item {\em Transformer} for its implementation of BERT and other models related to it
+      \item {\em Shap} for model explanation
+      \item {\em Flask} was used as the web application framework 
+\end{itemize}
+
+\item AutoDL was used for online GPU resources and remote execution of code in jupyter notebook format
+ 
+\item \LaTeX\ was used to format the thesis, via {\em Visual Studio Code} with LaTeX Workshop. 
+
+\item GitHub was used to store, backup and share the source code, scripts, data, etc. of this project
+\url{https://github.com/Sting-Scorpion/DataScience_Project}
+
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Notation and Acronyms}
+
+\noindent
+The following list of notations and acronyms will be referenced in this project:
+
+\begin{quote}
+\noindent
+\begin{tabular}{lcl}
+HMM &: & Hidden Markov Methods \\
+SVM &: & Support Vector Machines \\
+KNN &: & K Nearest Neighbours \\
+CRF &: & Conditional Random Fields \\
+CNN &: & Convolutional Neural Network \\
+RNN &: & Recurrent Neural Networks \\
+LSTM &: & Long Short-Term Memory \\
+BiLSTM &: & Bidirectional Long Short-Term Memory \\
+BERT &: & Bidirectional Encoder Representations from Transformers \\
+GPU &: & Graphics Processing Unit \\
+${\mathcal H}( x )$ &: & the Hamming weight of $x$ \\
+\end{tabular}
+\end{quote}
+
+% -----------------------------------------------------------------------------
+
+\chapter*{Acknowledgements}
+
+\noindent
+
+% =============================================================================
+
+% After the front matter comes a number of chapters; under each chapter,
+% sections, subsections and even subsubsections are permissible.  The
+% pages in this part are numbered with Arabic numerals.  Note that:
+%
+% - A reference point can be marked using \label{XXX}, and then later
+%   referred to via \ref{XXX}; for example Chapter\ref{chap:context}.
+% - The chapters are presented here in one file; this can become hard
+%   to manage.  An alternative is to save the content in seprate files
+%   the use \input{XXX} to import it, which acts like the #include
+%   directive in C.
+
+\mainmatter
+
+% -----------------------------------------------------------------------------
+
+\chapter{Introduction}
+\label{chap:introduction}
+
+% putting a \noindent before the first para in each chapter looks nicer.
+
+\section{Suicide Ideation Identification Overview}
+
+\section{Statement of Suicide Ideation Identification}
+
+\section{Purpose of the Project}
+
+\section{Structure}
+
+
+% -----------------------------------------------------------------------------
+
+\chapter{Related Work}
+\label{chap:background}
+
+\noindent
+Currently natural language processing technology is becoming increasingly sophisticated, and social networks play an important role in people's daily lives, with people expressing their inner thoughts through social networks. 
+Evidence suggests that introverts are highly inclined to engage in online communication, which leads to more self-expression. Signals of suicidal ideation and intentions are increasingly appearing on social networks, prompting significant interest among scholars in computer science and psychology in conducting mental health research through internet or social network-based platforms.
+
+\section{Suicidal Ideation in Texts}
+\noindent
+In some countries, the traditional psychological approach of using a form or face-to-face interview to assess suicidal ideation is still largely used when studying whether a person is suicidal. However, this method has a high degree of volatility, as often people with suicidal attempts do not actively seek help, and it is difficult to prevent subjects from deliberately hiding their true inner thoughts. This method is difficult to use as an early warning.
+
+\section{Conventional Machine Learning}
+\noindent
+Machine learning can be categorized into two main types: conventional machine learning and deep learning. Conventional machine learning starts from observation samples and tries to discover the complex laws behind them to achieve the prediction of future data trends. One of the important theoretical foundations of conventional machine learning algorithms is statistics, which has gained wide application in many computer fields such as natural language processing, speech recognition and image recognition. Related algorithms include Logistic Regression, Hidden Markov Methods (HMM), Support Vector Machines (SVM), K Nearest Neighbours (KNN), Bayesian Methods, Decision Trees etc., mainly utilized for classification and regression tasks in the case of limited samples.
+
+The main process of sentiment classification based on traditional machine learning is as follows. Firstly, the collected text data are labelled and processed to form a training set. Subsequently, the processed data undergo feature extraction. Following this, an appropriate supervised learning model is selected for training. Finally the trained model is able to predict the sentiment of unseen, new samples.
+
+Pang et al. in 2002 first proposed the use of standard machine learning methods in solving emotion classification problems, with Naive Bayes, Maximum Entropy and SVM. And the experimental results show that SVM has the best effect among these methods. But these methods do not perform as well as on customary subject related classification.\cite{pang2002thumbs} B. Aliman et al. used several different models for binary sentiment analysis of tweets. The results show that Logistic Regression model outperforms SVM and Naive Bayes for the prediction of potential mental health crisis. \cite{aliman2022sentiment}
+
+Despite the fact that conventional machine learning methods have achieved successes on some datasets and their ability to reduce labor costs. However, there are still some limitations in feature extraction, which makes it difficult to effectively extract features and mine deep semantics.
+
+\section{Deep Learning}
+\noindent
+In recent years, with advancements in computer hardware performance, deep learning was first introduced by Hinton et al.\cite{hinton2006reducing} as a soluation to the shortcomings of conventional machine learning methods. The core of deep learning is its backpropagation algorithm. Unlike conventional machine learning methods, deep learning methods can efficiently extract deeper semantics from text, resulting in significant improvements in performance. Thus deep learning approaches have dominated the field of natural language processing.
+
+Currently the mainstream deep learning neural networks are: Convolutional Neural Networks (CNN)\cite{chua1998cnn} and Recurrent Neural Networks (RNN)\cite{socher2011parsing}. CNN excels in extracting static features from text and capturing regional information. KIM firstly introduced CNN into text processing tasks. With pre-trained word vectors from Google News, significant advancements were achieved in sentence-level text sentiment classification.\cite{2014Convolutional} 
+
+However, CNN mainly focuses on sequence features in the text space, and cannot effectively capture dependencies within time-series data. Therefore, RNN, which is mainly designed for processing time-series data, is introduced to capture the dependencies between words, thereby facilitating the extraction of global information of text. RNN consists of multiple neurons that compute sequentially, where each neuron's input contains the output of the previous neuron, which gives the network a memory capability and the ability to handle variable length sequences.
+
+\subsection{LSTM}
+\noindent
+However, when dealing with excessively long sequences, the RNN may suffer from gradient vanishing or gradient explosion, thus failing to solve the problem of long-range dependency. Hochreiter et al. improved on the RNN and proposed Long Short-Term Memory (LSTM).\cite{hochreiter1997long} Forget gates are used to regulate the retention and discarding of information\cite{greff2016lstm}, mitigating the limitations of traditional RNN and enhancing the capacity to capture long-range dependency. Tang et al. applied the LSTM to aspect-level sentiment analysis.\cite{tang2015target}
+
+Traditional LSTM can only utilize the information of previous moments to predict current moments' information, but information from current moment may also be related to a future moment. To address this problem, bidirectional LSTM (BiLSTM) model was proposed, combining the outputs of the lstm units in both forward and backward directions and also leveraging contextual information. Experiments have demonstrated that BiLSTM models are usually more effective in dealing with contextual information compared to LSTM models that are unidirectional.\cite{hameed2019computationally}
+
+\subsection{BERT}
+
+\section{Explainable AI}
+
+% -----------------------------------------------------------------------------
+
+\chapter{Baseline Model}
+\label{chap:execution1}
+
+\section{Preprocess Data}
+
+\section{Extract a Bag-of-Words}
+
+\section{Logistic Regression Classifier}
+
+\section{Improve with Word Embedding}
+
+\section{Baseline Performance}
+
+\subsection{Logistic Regression with CountVectorizer}
+
+\subsection{Logistic Regression with BERT Embedding}
+
+\section{Baseline Model Explanation}
+
+% -----------------------------------------------------------------------------
+
+\chapter{Deep Learning Model}
+\label{chap:execution2}
+
+\section{Preprocess Data}
+
+\section{Recurrent Neural Network}
+
+\subsection{Bi-LSTM Model}
+
+\subsection{Bi-LSTM Model Performance}
+
+\subsection{Bi-LSTM Model Explanation}
+
+\section{Large Language Model}
+
+\subsection{BERTForSequenceClassification}
+
+\subsection{BERT Model Performance}
+
+\subsection{BERT Model Explanation}
+
+% -----------------------------------------------------------------------------
+
+\chapter{Suicide Ideation Identification System Implementation}
+\label{chap:implementation}
+
+% -----------------------------------------------------------------------------
+
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+\section{Summary}
+
+\noindent
+
+\section{Project Status}
+
+\noindent
+The aims of the project are as follows:
+
+\begin{itemize}
+      \item one
+      \item two
+\end{itemize}
+
+\section{Further Work}
+
+\noindent
+
+\textbf{one}
+
+\textbf{two}
+
+
+% =============================================================================
+
+% Finally, after the main matter, the back matter is specified.  This is
+% typically populated with just the bibliography.  LaTeX deals with these
+% in one of two ways, namely
+%
+% - inline, which roughly means the author specifies entries using the 
+%   \bibitem macro and typesets them manually, or
+% - using BiBTeX, which means entries are contained in a separate file
+%   (which is essentially a database) then imported; this is the 
+%   approach used below, with the databased being dissertation.bib.
+%
+% Either way, the each entry has a key (or identifier) which can be used
+% in the main matter to cite it, e.g., \cite{X}, \cite[Chapter 2}{Y}.
+
+\backmatter
+
+\bibliography{sample_bibtex.bib}
+
+% -----------------------------------------------------------------------------
+
+% The dissertation concludes with a set of (optional) appendices; these are 
+% the same as chapters in a sense, but once signalled as being appendices via
+% the associated macro, LaTeX manages them appropriately.
+
+\appendix
+
+\chapter{Appendix}
+\label{appx:example}
+
+Content which is not central to, but may enhance the dissertation can be 
+included in one or more appendices; examples include, but are not limited
+to
+
+\begin{itemize}
+\item lengthy mathematical proofs, numerical or graphical results which 
+      are summarised in the main body,
+\item sample or example calculations, 
+      and
+\item results of user studies or questionnaires.
+\end{itemize}
+
+\noindent
+Note that in line with most research conferences, the examiners are not
+obliged to read such appendices.
+
+% =============================================================================
+
+\end{document}
