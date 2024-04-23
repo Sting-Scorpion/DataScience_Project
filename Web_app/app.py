@@ -7,9 +7,9 @@ app = Flask(__name__)
 # Select device
 # device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-model_path = './pretrained/bert-base-uncased'
+model_path = '../pretrained/bert-base-uncased'
 assert os.path.exists(model_path)
-weight_path = './model/Bert_classifier.pth'
+weight_path = '../model/Bert_classifier.pth'
 assert os.path.exists(weight_path)
 
 # Load Model
