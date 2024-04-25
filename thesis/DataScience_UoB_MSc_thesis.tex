@@ -114,17 +114,20 @@ The following list of notations and acronyms will be referenced in this project:
 \begin{quote}
 \noindent
 \begin{tabular}{lcl}
-HMM &: & Hidden Markov Methods \\
-SVM &: & Support Vector Machines \\
-KNN &: & K Nearest Neighbours \\
-CRF &: & Conditional Random Fields \\
-CNN &: & Convolutional Neural Network \\
-RNN &: & Recurrent Neural Networks \\
-LSTM &: & Long Short-Term Memory \\
-BiLSTM &: & Bidirectional Long Short-Term Memory \\
-BERT &: & Bidirectional Encoder Representations from Transformers \\
-GPU &: & Graphics Processing Unit \\
-${\mathcal H}( x )$ &: & the Hamming weight of $x$ \\
+      NLP &: & Natural Language Processing \\
+      LR &: & Logistic Regression \\
+      HMM &: & Hidden Markov Methods \\
+      SVM &: & Support Vector Machines \\
+      KNN &: & K Nearest Neighbours \\
+      CRF &: & Conditional Random Fields \\
+      BoW &: & Bag-of-Words \\
+      CNN &: & Convolutional Neural Network \\
+      RNN &: & Recurrent Neural Networks \\
+      LSTM &: & Long Short-Term Memory \\
+      BiLSTM &: & Bidirectional Long Short-Term Memory \\
+      BERT &: & Bidirectional Encoder Representations from Transformers \\
+      GPU &: & Graphics Processing Unit \\
+      ${\mathcal H}( x )$ &: & the Hamming weight of $x$ \\
 \end{tabular}
 \end{quote}
 
@@ -180,7 +183,7 @@ In some countries, the traditional psychological approach of using a form or fac
 
 \section{Conventional Machine Learning}
 \noindent
-Machine learning can be categorized into two main types: conventional machine learning and deep learning. Conventional machine learning starts from observation samples and tries to discover the complex laws behind them to achieve the prediction of future data trends. One of the important theoretical foundations of conventional machine learning algorithms is statistics, which has gained wide application in many computer fields such as natural language processing, speech recognition and image recognition. Related algorithms include Logistic Regression, Hidden Markov Methods (HMM), Support Vector Machines (SVM), K Nearest Neighbours (KNN), Bayesian Methods, Decision Trees etc., mainly utilized for classification and regression tasks in the case of limited samples.
+Machine learning can be categorized into two main types: conventional machine learning and deep learning. Conventional machine learning starts from observation samples and tries to discover the complex laws behind them to achieve the prediction of future data trends. One of the important theoretical foundations of conventional machine learning algorithms is statistics, which has gained wide application in many computer fields such as natural language processing, speech recognition and image recognition. Related algorithms include Logistic Regression (LR), Hidden Markov Methods (HMM), Support Vector Machines (SVM), K Nearest Neighbours (KNN), Bayesian Methods, Decision Trees etc., mainly utilized for classification and regression tasks in the case of limited samples.
 
 The main process of sentiment classification based on traditional machine learning is as follows. Firstly, the collected text data are labelled and processed to form a training set. Subsequently, the processed data undergo feature extraction. Following this, an appropriate supervised learning model is selected for training. Finally the trained model is able to predict the sentiment of unseen, new samples.
 
@@ -192,7 +195,7 @@ Despite the fact that conventional machine learning methods have achieved succes
 \noindent
 In recent years, with advancements in computer hardware performance, deep learning was first introduced by Hinton et al.\cite{hinton2006reducing} as a soluation to the shortcomings of conventional machine learning methods. The core of deep learning is its backpropagation algorithm. Unlike conventional machine learning methods, deep learning methods can efficiently extract deeper semantics from text, resulting in significant improvements in performance. Thus deep learning approaches have dominated the field of natural language processing.
 
-Currently the mainstream deep learning neural networks are: Convolutional Neural Networks (CNN)\cite{chua1998cnn} and Recurrent Neural Networks (RNN)\cite{socher2011parsing}. CNN excels in extracting static features from text and capturing regional information. KIM firstly introduced CNN into text processing tasks. With pre-trained word vectors from Google News, significant advancements were achieved in sentence-level text sentiment classification.\cite{2014Convolutional} 
+Currently the mainstream deep learning neural networks are: Convolutional Neural Networks(CNN)\cite{chua1998cnn} and Recurrent Neural Networks (RNN)\cite{socher2011parsing}. CNN excels in extracting static features from text and capturing regional information. KIM firstly introduced CNN into text processing tasks. With pre-trained word vectors from Google News, significant advancements were achieved in sentence-level text sentiment classification.\cite{2014Convolutional} 
 
 However, CNN mainly focuses on sequence features in the text space, and cannot effectively capture dependencies within time-series data. Therefore, RNN, which is mainly designed for processing time-series data, is introduced to capture the dependencies between words, thereby facilitating the extraction of global information of text. RNN consists of multiple neurons that compute sequentially, where each neuron's input contains the output of the previous neuron, which gives the network a memory capability and the ability to handle variable length sequences.
 
@@ -203,6 +206,12 @@ However, when dealing with excessively long sequences, the RNN may suffer from g
 Traditional LSTM can only utilize the information of previous moments to predict current moments' information, but information from current moment may also be related to a future moment. To address this problem, bidirectional LSTM (BiLSTM) model was proposed, combining the outputs of the lstm units in both forward and backward directions and also leveraging contextual information. Experiments have demonstrated that BiLSTM models are usually more effective in dealing with contextual information compared to LSTM models that are unidirectional.\cite{hameed2019computationally}
 
 \subsection{BERT}
+\noindent
+Bidirectional Encoder Representations from Transformers(BERT) was first proposed by Devlin et al. on the Google AI Language team.\cite{devlin2018bert}, represents a groundbreaking language representation model. Unlike traditional unidirectional language models, BERT aims to pre-train deep bidirectional representations by considering both left and right contexts. This model ushers a new era of large-scale pre-training based language models that significantly advances the field of natural language processing.
+
+BERT mainly consists of multiple Transformers encoders, and each layer contains self-attention mechanism and feed-forward neural network.\cite{vaswani2017attention} By pre-training on extensive datasets and fine-tuning the BERT model, deep bi-directional linguistic representations are generated, which can be used in different NLP downstream tasks. Research by Bilal et al. employed BERT for sentiment classification\cite{bilal2023effectiveness}, Qu et al. utilized BERT for question-answering tasks\cite{qu2019bert}, and Miller et al. applied BERT for summarising texts\cite{miller2019leveraging}. The powerful advantages of pre-trained models have led increasing scholarly interest in NLP research with BERT.
+
+Furthermore, scholars have introduced many variant models based on BERT to target improvements in diverse tasks and scenarios. RoBERTa, proposed by Facebook AI in 2019\cite{liu2019roberta}, improves the performance of the model with a larger vocabulary list, extended training sequences, augmented data, and diverse pre-training tasks. DistillBERT, introduced by Hugging Face in 2019\cite{sanh2020distilbert}, is a simplified version of BERT that approximates the performance of BERT with a smaller, faster model by distilling key information from BERT through knowledge distillation techniques. Additionally, BART, proposed by Facebook AI in 2019\cite{lewis2019bart}, adopts the BERT architecture for sequence-to-sequence tasks such as text summarisation and text generation.
 
 \section{Explainable AI}
 
@@ -211,11 +220,117 @@ Traditional LSTM can only utilize the information of previous moments to predict
 \chapter{Baseline Model}
 \label{chap:execution1}
 
+\noindent
+This chapter will cover an approach to sentiment classification based on baseline model. The initial section ooutlines how to pre-process the data, and transform textual data into a format compatible with the model. Subsequently, the second section contains an explanation of the baseline model. Moving forward, the third section tries to enhance the model performance by optimising the data processing part based through the utilization of word embedding. Following this, the fourth section evaluates the model through the analysis of the performance metrics. Finally, the last section includes the explanation of the model, dissecting the factors contributing to both its good and bad performances.
+
 \section{Preprocess Data}
+\noindent
+Since algorithms can only handle numeric data, data preprocessing is essential to enable text data to be received by the model and facilitate learning features. Raw text often contains a lot of redundant and repetitive information, while data preprocessing can help the algorithm to focus on the core content of the text, which improves the accuracy of the algorithm.
 
-\section{Extract a Bag-of-Words}
+\subsection{Exploratory Data Analysis}
+\noindent
+Firstly, the entire dataset undergoes the test to see whether it is balanced or not, and if there are any missing values. Alongside the length distribution within each category is analyzed. Upon dataset examination, it's revealed that the label consists of two categories: "suicide" and "non-suicide". The sample size of both categories is 116,037 entries, which is a balanced dataset with no missing values. However, there's significant variance in the average data length between categories. Figure \ref{fig:describe} depicts the relationship between sample length, in terms of the number of tokens, and sample numbers. 
 
-\section{Logistic Regression Classifier}
+\begin{figure}[h]
+      \centering
+      \includegraphics[width=0.6\linewidth]{../img/data_describe.png}
+      \caption{Distribution of data across samples of varying lengths}
+      \label{fig:describe}
+\end{figure}
+
+Notably, the average sample length in the "suicide" category exceeds that of the "non-suicide" category. The specific data is shown in the Table \ref{tab:describe}.
+
+\begin{table}[h]
+      \centering
+      \begin{tabular}{ccccc}
+            \hline
+            class & count & mean length & min & max \\
+            \hline
+            suicide & 116037 & 61.188 & 2 & 8220 \\
+            non-suicide & 116037 & 202.662 & 1 & 9684 \\
+            \hline
+      \end{tabular}
+      \caption{Data Description}
+      \label{tab:describe}
+\end{table}
+
+Following the initial analysis, word clouds were generated for each of the two categories of data. A word cloud offers a visual depiction of word frequency. The more frequently a word occurs within the text being analysed, the larger that word is in the generated image. This visualization technique is increasingly being used as a simple tool for determining the focus of written material.\cite{atenstaedt2012word} Figure \ref{fig:word cloud} shows the word cloud of both "non-suicide"(Figure \ref{fig:word cloud}\ref{sub@wc_n}) and "suicide"(Figure \ref{fig:word cloud}\ref{sub@wc_s}) categories.
+
+\begin{figure}[h]
+      \centering
+      \subfloat["non-suicide" Class]{
+            \includegraphics[width=0.44\linewidth]{../img/wc_nonsuicide.jpg}
+            \label{wc_n}}
+      \hfil
+      \subfloat["suicide" Class]{
+            \includegraphics[width=0.44\linewidth]{../img/wc_suicide.jpg}
+            \label{wc_s}}
+      \caption{Word Cloud of both two Categories of Raw Texts}
+      \label{fig:word cloud}
+\end{figure}
+
+\subsection{Data Cleaning}
+\noindent
+After performing exploratory data analysis, a general understanding of the data set has been obtained. The next step should be to preprocess the data.
+
+Missing values can appear due to various reasons, such as data entry errors, sensor failures, or simply due to the nature of the data collection process. Common processing methods to deal with missing values include deletion, filling with special values, marking as a new class, and so on. The section of a method depends on the characteristics of the dataset and the most appropriate method must be chosen accordingly. However, since there are no missing values in this dataset, this step is not required.
+
+Given the presence of numerous abbreviations in the text, which may lead to interpretational confusion. Therefore it is essential to convert common abbreviations into their full forms. This can be handled with a dictionary structure in Python, containing common abbreviations and corresponding full forms. Each word in the text can then be iterated through regular expressions and the abbreviations contained in the dictionary are replaced.
+
+What's more, the dataset may contain many unwanted content such as URLs, emojis, special symbols, etc. These are not conductive to semantic analysis of the text and may even interfere with the learning process of the model. Such content can be filtered out with regular expressions.
+
+Finally, it is vital to remove the stopwords in the text. Stopwords are words that appear frequently in the text (e.g., "the", "is", "and") but contribute minimally to the meaning of the text. Removing these words can enhance text processing efficiency. Many organisations published their pre-made stopwords lists. Here the English stopword list provided by the NLTK library is used to remove stopwords from the dataset.
+
+Subsequently, Figure \ref{fig:word cloud clean} shows the word cloud of the dataset extracted after data cleaning to compare the result before and after data cleaning.
+
+\begin{figure}[h]
+      \centering
+      \subfloat["non-suicide" Class after Cleaning]{
+            \includegraphics[width=0.44\linewidth]{../img/wc_nonsuicide_c.jpg}
+            \label{wc_n_c}}
+      \hfil
+      \subfloat["suicide" Class after Cleaning]{
+            \includegraphics[width=0.44\linewidth]{../img/wc_suicide_c.jpg}
+            \label{wc_s_c}}
+      \caption{Word Cloud of both two Categories after Data Cleaning}
+      \label{fig:word cloud clean}
+\end{figure}
+
+\subsection{Word Vectorization}
+\noindent
+After cleaning the dataset, the text needs to be vectorially represented. Bag-of-words (BoW) model is one of the commonly used vector representation models among so many models. BoW model, based on one-hot encoding\cite{chren1998one}, is a simple yet powerful technique used in NLP for representing text data. It's based on the concept of treating text as a "bag" of individual words, disregarding grammar and word order, and focusing solely on word frequency. The workflow of the model is divided into the following steps:
+
+\begin{enumerate}
+      \item Tokenization: The first step is to break down the text into individual tokens. This process involves splitting the text into words based on whitespace characters.
+      \item Vocabulary Creation: Next, a vocabulary is created by compiling a list of unique words present in the entire dataset. Each unique word in the vocabulary becomes a feature in the BoW model.
+      \item Vectorization: For each document in the dataset, a vector is constructed where each element represents the frequency of a word from the vocabulary in that document. The length of the vector is equal to the size of the vocabulary, and the values are the counts of each words in a document.
+      \item Sparse Representation: Since most documents only contain a small subset of the words in the vocabulary, the resulting vectors are typically sparse, meaning that most of the elements are zero.
+\end{enumerate}
+
+During implementation, the maximum number of features can be set to prevent excessive dimensionality and to speed up processing. Finally a sparse matrix representing the number of occurrences of the word will be obtained as the word vector passed to the model.
+
+\section{Logistic Regression}
+\noindent
+After the data pre-processing step, a vector-like representation of the data is obtained, which can be served as the training and testing data for the baseline model. Here, logistic regression is used as the baseline model. Logistic regression is a classification method in the field of statistics and machine learning. Despite its name, logistic regression is a classification algorithm, not a regression algorithm. The goal of logistic regression is to predict the probability of an event occurring, achieved through a combination of linear regression and an activation function.
+
+As a generalized linear regression algorithm, logistic regression initially employs a linear regression algorithm to model the relationship between the independent (features) and dependent (outcome) variables. The linear equation takes the following form:
+\begin{eqnarray}
+      z=b_0+b_1x_1+b_2x_2+\cdots+b_nx_n
+\end{eqnarray}
+
+Where $z$ represents the log-odds of the probability of the positive class, $x_1,x_2,\cdots,x_n$ are the feature variables, and $b_1,b_2,\cdots,b_n$ are the coefficients to be estimated. The linear result $z$ is next passed to a logistic function that converts the log odds into a probability ranging between 0 and 1. The sigmoid function is most commonly used for this transformation, defined as:
+\begin{eqnarray}
+      p(z)=\frac{1}{1 + e^{-z}}
+\end{eqnarray}
+
+Where $p$ represents the probability of a positive prediction. The complete logistic regression formula can be obtained by combining the two formulas:
+\begin{eqnarray}
+      p=\frac{1}{1 + e^{-(b_0+b_1x_1+b_2x_2+\cdots+b_nx_n)}}
+\end{eqnarray}
+
+After that, a threshold is determined to serve as a dividing line (usually 0.5), making the predicted probability converted into a binary outcome. If the predicted probability is greater than the threshold, the instance is classified as belonging to the positive class; otherwise, it is classified as belonging to the negative class.
+
+Logistic regression iteratively updates the coefficients $b_1,b_2,\cdots,b_n$ through optimisation algorithms such as maximum likelihood estimation (MSE) or stochastic gradient descent (SGD). The objective is to adjust the coefficients in such a way that the probability of positive category increased and the probability of negative category decreased. This iterative optimization process continues until convergence, where the model parameters converge to their optimal values, leading to the best model performance.
 
 \section{Improve with Word Embedding}
 
