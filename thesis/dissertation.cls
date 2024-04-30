@@ -69,6 +69,8 @@
 % \RequirePackage{dtklogos}
 % Dave Cliff added this, June2021
 \RequirePackage{xcolor}
+% LW added
+\usepackage{subfig}    %% 子图包
 % =============================================================================
 
 \makeatletter
