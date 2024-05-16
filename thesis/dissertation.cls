@@ -70,7 +70,8 @@
 % Dave Cliff added this, June2021
 \RequirePackage{xcolor}
 % LW added
-\usepackage{subfig}    %% 子图包
+\RequirePackage{subfig}     %% 子图包
+\RequirePackage{multirow}   %% 合并行
 % =============================================================================
 
 \makeatletter
