@@ -72,6 +72,12 @@
 
 % -----------------------------------------------------------------------------
 
+\chapter*{Ethics Statement}
+\noindent
+An ethics application for this project was reviewed and approved by the faculty research ethics committee as application 15359.
+
+% -----------------------------------------------------------------------------
+
 \chapter*{Abstract}
 \noindent
 Suicide is indeed a critical public health issue that seriously affects the rapid development of the society and the global economy. According to the World Health Organization (WHO), with nearly a million suicides occurring annually. The negative of each suicide are extensive, affecting at least six individuals close to the victim, and causing psychological distress that can last for a decade. Therefore, early identification of suicidal ideation and timely intervention and counselling has become a very important task for human society. While traditional methods for diagnosing suicide ideation involve labour-intensive and time-consuming procedures like questionnaires or interviews, which might not be able to accurately capture an individual's real feelings and emotions. This can result in missed opportunities for intervention, potentially leading to tragic outcomes.
@@ -94,6 +100,12 @@ Main points of achievement in this project are listed as follows:
       \item Using SHAP to explain the models' outputs.
       \item A web application based on the model with the best performance was developed.
 \end{itemize}
+
+\bigskip
+
+The Oral Presentation has been uploaded on {\em YouTube}, which can be viewed through the \href{https://youtu.be/ZRfwWOvIWOA}{LINK}.
+
+The code, scripts and data have been backed up to {\em GitHub}, which can be found through the \href{https://github.com/Sting-Scorpion/DataScience_Project}{LINK}.
 
 % -----------------------------------------------------------------------------
 
@@ -120,6 +132,9 @@ The following Python packages were used in the project:
 
 \item GitHub was used to store, backup and share the source code, scripts, data, etc. of this project
 \url{https://github.com/Sting-Scorpion/DataScience_Project}
+
+\item YouTube was used to upload the oral presentation component of this project
+\url{https://youtu.be/ZRfwWOvIWOA}
 
 \end{itemize}
 
@@ -150,7 +165,7 @@ The following list of notations and acronyms will be referenced in this project:
       SGD     &: & Stochastic Gradient Descent \\
       SHAP    &: & Shapley Additive Explanations \\
       SVM     &: & Support Vector Machines \\
-      XAI     &: & Explainable AI \\
+      XAI     &: & Explainable Artifical Intelligence \\
               &$\vdots$ \\
       ${\sigma}( x )$ &: & Sigmoid function \\
 \end{tabular}
@@ -364,7 +379,7 @@ Recall is the proportion of the number of positive samples correctly predicted b
       \label{rec}
 \end{eqnarray}
 
-The F1 score is the harmonic mean of the precision and recall. It provides a balanced measure of a model's performance by considering both precision and recall simultaneously.
+The Precision and Recall harmonic means are combined to get the F1 score. It offers a fair assessment of a model's efficacy by taking Precision and Recall into account at the same time.
 
 \begin{eqnarray}
       \begin{aligned}
@@ -462,7 +477,7 @@ After cleaning the dataset, the text needs to be vectorially represented. BoW mo
 \begin{enumerate}
       \item Tokenization: The first step is to break down the text into individual tokens. This process involves splitting the text into words based on whitespace characters.
       \item Vocabulary Creation: Next, a vocabulary is created by compiling a list of unique words present in the entire dataset. Each unique word in the vocabulary becomes a feature in the BoW model.
-      \item Vectorization: For each document in the dataset, a vector is constructed where each element represents the frequency of a word from the vocabulary in that document. The length of the vector is equal to the size of the vocabulary, and the values are the counts of each words in a document.
+      \item Vectorization: For each document in the dataset, a vector is constructed with each element being the frequency of a word from the vocabulary in that document. The vector's length corresponds to the size of the vocabulary, and the values are the counts of each words in a document.
       \item Sparse Representation: Since most documents only contain a small subset of the words in the vocabulary, the resulting vectors are typically sparse, meaning that most of the elements are zero.
 \end{enumerate}
 
@@ -537,17 +552,17 @@ Like many other deep learning models in NLP, BERT processes the words in the tex
       \label{fig:bert_embedding}
 \end{figure}
 
-Token Embeddings: Encode the word IDs and convert them into fixed-dimensional vectors. In BERT, each word is typically transformed into a 768-dimensional vector representation by default. Suppose $batch\_size$ represents the size of a batch and $sen\_length$ represents the number of tokens in a sentence. After tokenization, the size of a batch of texts is $[batch\_size, sen\_length]$ and it becomes a three dimensional tensor with size $[batch\_size, sen\_length, 768]$ after embedding.
+Token Embeddings: Encode the word IDs and convert them into fixed-dimensional vectors. In BERT, each token is typically transformed into a 768-dimensional vector representation by default.
 
 Segment Embeddings: Useful only when the input is a sentence pair, it helps BERT to distinguish whether a token belongs to the first sentence or the second sentence. Since only a single sentence is considered for determining suicide ideation, all elements in the output of this layer are $0$.
 
 Position Embeddings: Facilitate BERT in learning the sequential order of input tokens. Because of Transformers' inability to handle sequence positions, position information need to be added manually to ensure proper sequence handling.
 
-The three embedding results are summed without weights with a size of $[batch\_size, sen\_length, 768]$. BERT applies layer normalisation to adjust the resultant tensor\cite{pymars2020normalisation}, which contributes to the stability and efficiency of model training. Finally, BERT applies dropout technique to regularise the model and reduce the risk of overfitting.
+The three embedding results are summed without weights. BERT applies layer normalisation to adjust the resultant tensor\cite{pymars2020normalisation}, which contributes to the stability and efficiency of model training. Finally, BERT applies dropout technique to regularise the model and reduce the risk of overfitting.
 
 \section{Baseline Model Performance}
 \noindent
-The dataset is split into a training set and a test set in the ratio of 8:2. The training set is utilized to train the model so that it can learn the relationships within the data, enabling the model to perform well on the target task. The test set is not involved in the training process and is reserved as unseen data. This separation simulates real-world scenarios where the model encounters new, unseen data for prediction. By evaluating the model's performance on the test set, its predictive capability under real-world conditions can be assessed.
+The dataset is split into a training set and a test set in the ratio of 8:2. The training set is utilized to train the model so that it can learn the relationships within the data, enabling the model to perform well on the target task. The test set is not involved in the training process and is reserved as unseen data. This separation simulates real-world scenarios where the model encounters new, unseen data for prediction. By evaluating the model's performance on the test set, its predictive capability can be assessed.
 
 To ensure the accuracy and reliability of the results, a stratified K-fold cross-validation approach is employed on the training set\cite{browne2000cross}. The entire training set is divided into $K$ equal-sized subsets, known as "folds". Moreover, each fold maintains the same proportion of samples in each category as in the original dataset, enhancing the robustness of performance estimates. During each iteration of the cross-validation process, one fold is selected as the validation set and the remaining serve as the training set to evaluate the model performance. This process is repeated $K$ times. Finally, the average performance metric of all $K$ iterations is calculated to get the generalisation ability of the model. In this experiment the value of $K$ is chosen as $5$. The structure of the cross validation process is showen in Figure \ref{fig:cross validation}.
 
@@ -558,13 +573,13 @@ To ensure the accuracy and reliability of the results, a stratified K-fold cross
       \label{fig:cross validation}
 \end{figure}
 
-After cross-validation, the average performance metrics of the two word vectorization methods on the logistic regression model are shown in the Table \ref{tab:baseline}. 
+After cross-validation, the average performance metrics and the number of iterations required for convergence of the two word vectorization methods on the logistic regression model are shown in the Table \ref{tab:baseline}. However, word embedding technique, which is supposed to contain more information, are not as effective as BoW models, and it converges more slowly during training. The prediction performance on the test dataset is shown in Tabel \ref{tab:lrperformance}. The possible reason for this is that logistic regression cannot express the features of word embedding very well.
 
 \begin{table}[h]
       \centering
       \begin{tabular}{cccccc}
             \hline
-            Word Vectorization Method & Accuracy (\%) & Precision (\%) & Recall (\%) & F1 Score (\%) & Iteration \\
+            Word Vectorization Method & Accuracy(\%) & Precision(\%) & Recall(\%) & F1 Score(\%) & Iteration \\
             \hline
             BoW model      & 93.26 & 95.13 & 91.18 & 93.11 & 691    \\
             Word Embedding & 73.34 & 75.00 & 70.02 & 72.42 & 1697   \\
@@ -573,8 +588,6 @@ After cross-validation, the average performance metrics of the two word vectoriz
       \caption{Performance Metrics of Different Word Vectorization Methods on Logistic Regression}
       \label{tab:baseline}
 \end{table}
-
-However, word embedding technique, which is supposed to contain more information, are not as effective as BoW models. The prediction performance on the test dataset is shown in Tabel \ref{tab:lrperformance}
 
 \begin{table}[!h]
       \centering
@@ -819,16 +832,25 @@ This observation provides strong evidence that Bi-LSTM is able to fully learn th
 
 \begin{figure}[h]
       \centering
-      \includegraphics[width=0.48\linewidth]{../img/roc_LRb&LSTM.jpg}
+      \includegraphics[width=0.45\linewidth]{../img/roc_LRb&LSTM.jpg}
       \caption{ROC Curves of Bi-LSTM and Baseline Model}
       \label{fig:rocLRLSTM}
 \end{figure}
 
 \subsection{Bi-LSTM Model Explanation}
 \noindent
-To interpret the predicted results of the model, SHAP is used as an explainer. Here the wrongly predicted examples have been selected, trying to explain the reason behind such errors through SHAP. Figure \ref{fig:lstmshap}\ref{sub@lstm_fp} shows a sample where the Bi-LSTM model misclassified a non-suicidal category as a suicidal one, and Figure \ref{fig:lstmshap}\ref{sub@lstm_fn} shows a suicide category example being judged as non-suicide.
+To interpret the predicted results of the model, SHAP is used as an explainer. A random sample was found to be explained with SHAP. It can be seen in Figure \ref{shap_lstm} that this is a suicidal text, and the model suggests that the words "suicidal", "tough", etc. contribute significantly to the model's judgement that it contains suicidal ideation.
 
 \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.7\linewidth]{../img/shap_lstm.png}
+      \caption{An Example Explained by SHAP}
+      \label{shap_lstm}
+\end{figure}
+
+Here the wrongly predicted examples have been selected, trying to explain the reason behind such errors through SHAP. Figure \ref{fig:lstmshap}\ref{sub@lstm_fp} shows a sample where the Bi-LSTM model misclassified a non-suicidal category as a suicidal one, and Figure \ref{fig:lstmshap}\ref{sub@lstm_fn} shows a suicide category example being judged as non-suicide.
+
+\begin{figure}[!h]
       \centering
       \subfloat[False Positive Sample]{
             \includegraphics[width=0.9\linewidth]{../img/lstm_fp.png}
@@ -851,27 +873,27 @@ LSTM has been able to have superior performance in this task by considering info
 \noindent
 BERT, proposed by Google in 2018\cite{devlin2018bert}, is a pre-trained language model that represents a significant advancement in NLP. It is a bidirectional pre-training model that comprehensively understands the context and the relationship between words from both left and right side, and can therefore process natural language with remarkable accuracy.
 
-The structure of the BERT network is shown in Figure \ref{fig:bertstructure}. It mainly consists of multiple Transformers encoders, applying unsupervised pre-training on a large amount of data, and then can be fine-tuned for different NLP tasks. The Transformers network employs self-attention to calculate the influence of each word in a sentence on every other word, or by recording an "attention score". It allows for superior encoding or decoding of sequential data, leading to enhanced performance in multiple tasks. Figure \ref{fig:transformerstructure} shows the structure of the Transformers network. The left part of this is the encoder of Transformers, which is used as the base structure of the BERT model.
+The structure of the BERT network is shown in Figure \ref{fig:bertstructure}. It mainly consists of multiple Transformers encoders, applying unsupervised pre-training on a large amount of data, and then can be fine-tuned for different NLP tasks. The Transformers network employs self-attention to calculate the influence of each word in a sentence on every other word, or by recording an "attention score". It allows for superior encoding or decoding of sequential data, leading to enhanced performance in multiple tasks. Figure \ref{fig:transformerstructure} shows the structure of the Transformers encoder, which is used as the base structure of the BERT model.
 
 \begin{figure}[h]
       \centering
-      \includegraphics[width=0.4\linewidth]{../img/bert.eps}
+      \includegraphics[width=0.45\linewidth]{../img/bert.eps}
       \caption[BERT Pre-training Language Model Diagram]{BERT Pre-training Language Model\cite{devlin2018bert}}
       \label{fig:bertstructure}
 \end{figure}
 
 \begin{figure}[h]
       \centering
-      \includegraphics[width=0.5\linewidth]{../img/transformer.jpg}
-      \caption[Transformers Network Structure]{Transformers Network Structure\cite{vaswani2017attention}}
+      \includegraphics[width=0.22\linewidth]{../img/transformer.jpg}
+      \caption[Transformers Encoder Structure]{Transformers Encoder Structure\cite{vaswani2017attention}}
       \label{fig:transformerstructure}
 \end{figure}
 
-The training of the BERT model involves two key phases: pre-training and fine-tuning. In the pre-training phase, the BERT model introduces a Masked Language Model (MLM) task and a Next Sentence Prediction (NSP) task. 
+The training of the BERT model involves two key phases: pre-training part and fine-tuning part. In the pre-training phase, the BERT model introduces a Masked Language Model (MLM) task and a Next Sentence Prediction (NSP) task. 
 
-In the MLM task, 15\% of the words in the training set are randomly replaced with [MASK] token, and the replaced words are predicted based on known contextual information. The masked words have an 80\% probability of being directly replaced with [MASK] token, a 10\% probability of being replaced with other words, and a 10\% probability of retaining the original words unchanged. 
+In the MLM task, 15\% of the words in the training set are randomly replaced with [MASK] token, and the replaced words are predicted based on known contextual information. The masked words have an 80\% chance of being directly replaced with [MASK] token, a 10\% possibility of being replaced with other words, and a 10\% probability of retaining the original words unchanged. 
 
-In the NSP task, BERT randomly replaces some sentences in order to learn the relationship between sentences pairs. It then predicts whether the second sentence follows the first sentence in the original text or not. This task helps BERT understand the contextual relationships between consecutive sentences. After the model is obtained through pre-training, it can then be fine-tuned to provide better performance for downstream tasks.
+In the NSP task, BERT randomly replaces some sentences in order to learn the relationship between sentences pairs. It then makes a prediction about whether or not the second sentence in the original text follows the first. This task helps BERT understand the contextual relationships between consecutive sentences. After the model is obtained through pre-training, it can then be fine-tuned to provide better performance for downstream tasks.
 
 \subsection{BERT Downstream Tasks}
 \noindent
@@ -884,7 +906,7 @@ Without changing the internal structure of the BERT model, various NLP tasks can
       \label{fig:bfsc}
 \end{figure}
 
-The BERT model inserts a [CLS] token at the beginning of the input text, shown in Figure \ref{fig:bert_embedding}, and utilizes the output vector corresponding to this token as a semantic representation of the whole text. Unlike other tokens, the [CLS] token has no inherent semantics, allowing it to integrate information from all tokens in the sentence more fairly. Therefore the output of this token is usually used for sentence classification tasks.
+The BERT model inserts a [CLS] token at the start of the input text, shown in Figure \ref{fig:bert_embedding}, and utilizes the output vector corresponding to this token as a semantic representation of the whole text. Unlike other tokens, the [CLS] token has no inherent semantics, allowing it to integrate information from all tokens in the sentence more fairly. Therefore the output of this token is usually used for sentence classification tasks.
 
 An additional output layer is appended to map the output 768-dimensional vectors into the final classification space. In this project, the 768-dimensional vector is mapped into a 2-dimensional vector space, and a softmax layer is utilized to generate the final result of sentiment classification, indicating the likelihood of being a "suicide" sample.
 
@@ -892,7 +914,7 @@ During the fine-tuning process, the model is trained on a specific dataset to en
 
 \subsection{BERT Model Performance}
 \noindent
-The AdamW optimizer\cite{loshchilov2019decoupled} is utilized in the process of training BERT model. AdamW is a variant of the Adam optimizer that distinguishes weight decay from the gradient update. This differentiation is based on the observation that the formulation of weight decay differs when applied to SGD and Adam. During training, most hyperparameters of the AdamW optimizer were kept at their default values. Only two were modified: "lr" for the learning rate and "eps" for the epsilon value that prevents division by zero in the optimizer. The hyperparameter settings of the experiment are shown in Table \ref{tab:berthyperparameter}:
+The AdamW optimizer\cite{loshchilov2019decoupled} is utilized in the process of training BERT model. AdamW is a variant of the Adam optimizer that distinguishes weight decay from the gradient update. This differentiation is based on the observation that the formulation of weight decay differs when applied to SGD and Adam. During training, most hyperparameters of the AdamW optimizer were kept at their default values. Only two were modified: "lr" for the learning rate and "eps" for the epsilon value that prevents division by zero in the optimizer. The hyperparameter settings of the experiment are displayed in Table \ref{tab:berthyperparameter}:
 
 \begin{table}[h]
       \centering
@@ -940,11 +962,20 @@ Figure \ref{fig:cm_BERT} shows the confusion matrix of the model. In order to co
       \label{tab:bertmetrics}
 \end{table}
 
-Conducting testing on both Bi-LSTM and BERT model, it is found that the BERT model outperforms the Bi-LSTM model in terms of accuracy, precision, recall, and F1 score. The BERT model exhibited superior performance across all metrics, indicating its effectiveness in accurately predicting suicide ideation in text. This comparison highlights the advantages of pre-trained language models like BERT, which can capture semantic relationships effectively. Consequently, the BERT model is selected as the preferred choice for deployment in real-world applications due to its superior performance and robustness in sentiment classification tasks.
+Conducting testing on both Bi-LSTM and BERT model, it is found that the BERT model performs better than the Bi-LSTM model in terms of accuracy, precision, recall, and F1 score. The BERT model exhibited superior performance across all metrics, indicating its effectiveness in accurately predicting suicide ideation in text. This comparison highlights the advantages of pre-trained language models like BERT, which can capture semantic relationships effectively. Consequently, the BERT model is selected as the preferred choice for deployment in real-world applications due to its superior performance and robustness in sentiment classification tasks.
 
 \subsection{BERT Model Explanation}
 \noindent
-SHAP was likewise used to interpret the predictions of the BERT model. Samples that were wrongly predicted by the BERT model were also selected to analyse why the BERT model made wrong predictions respectively. Figure \ref{fig:bertshap} show the results of SHAP's explanations respectively.
+SHAP was likewise used to interpret the predictions of the BERT model. For comparison, the same sample selected above for interpreting Bi-LSTM was applied for interpreting BERT as well. Figure \ref{shap_bert} shows that although both models correctly predicted the sentence as having suicidal ideation, the contribution of each word is different in the two models. The word "infection" is heavily weighted in the BERT model, whereas "suicide", which is obvious, plays only a minor role. This also proves that the BERT model is stronger in extracting contextual relationships.
+
+\begin{figure}[h]
+      \centering
+      \includegraphics[width=0.9\linewidth]{../img/shap_bert.png}
+      \caption{An Example Explained by SHAP}
+      \label{shap_bert}
+\end{figure}
+
+Samples that were wrongly predicted by the BERT model were also selected to analyse why the BERT model made wrong predictions respectively. Figure \ref{fig:bertshap} show the results of SHAP's explanations respectively.
 
 \begin{figure}[h]
       \centering
@@ -968,32 +999,23 @@ In the first sentence, only two short words remain after data cleaning, making i
 \noindent
 Model deployment refers to the deployment of a trained model from a development environment to a production setting for real-world applications. Before release, the model needs to be exported from the training environment and then deployed to the production environment, usually as a service or a library. 
 
-The deployment method can be based on specific application scenarios and requirements, and common methods are Web API, embedded devices, containerisation, etc. Here the Web API approach is adopted to deploy the model as a web service and obtain the model prediction results through HTTP requests. Based on Flask framework a system is implemented which can predict whether the input text indicates suicide ideation.
+\section{System Architecture}
+\noindent
+The deployment method can be based on specific application scenarios and requirements, and common methods are Web API, embedded devices, containerisation, etc. Here the Web API approach is adopted to deploy the model as a web service, obtaining the model prediction results through HTTP requests. Based on Flask framework a system is implemented which can predict whether the input text indicates suicide ideation.
 
+\section{Model Selection}
+\noindent
 Comparing the performance of all models, the ROC curves of the four models are depicted in the Figure \ref{fig:rocs}. Clearly, the BERT model has the highest performance. Therefore the BERT model will be deployed in the web application for predicting suicide ideation in text.
 
 \begin{figure}[h]
       \centering
-      \subfloat[LR with BoW]{
-            \includegraphics[width=0.4\linewidth]{../img/roc_LR_c.jpg}
-            \label{roc_LR_c}}
-      \hfil
-      \subfloat[LR with Bert Embedding]{
-            \includegraphics[width=0.4\linewidth]{../img/roc_LR_b.jpg}
-            \label{roc_LR_b}}
-      \hfil
-      \subfloat[LSTM]{
-            \includegraphics[width=0.4\linewidth]{../img/roc_LSTM.jpg}
-            \label{roc_LSTM}}
-      \hfil
-      \subfloat[BERT]{
-            \includegraphics[width=0.4\linewidth]{../img/roc_BERT.jpg}
-            \label{roc_BERT}}
+      \includegraphics[width=0.7\linewidth]{../img/roc_LRb&LRc&LSTM&BERT.jpg}
       \caption{ROC Curves of Different Models}
       \label{fig:rocs}
 \end{figure}
 
-The initial page, as shown in the Figure \ref{fig:pageinitial}, includes an input box, a prediction button, and a button to clear the input. The input box has a default text that prompts the user to enter to the text to be predicted for suicide ideation. After entering the text in the input box, clicking the 'Predict emotions' button, the result of prediction will be shown in the web page.
+\section{User Interface}
+The initial page, as shown in the Figure \ref{fig:pageinitial}, includes an input box, a prediction button, and a button to clear the input. The input box has a default text that prompts the user to enter to the text to be predicted for suicide ideation. After entering the text into the text box, clicking the 'Predict emotions' button, the result of prediction will be shown in the web page.
 
 \begin{figure}[h]
       \centering
@@ -1002,7 +1024,7 @@ The initial page, as shown in the Figure \ref{fig:pageinitial}, includes an inpu
       \label{fig:pageinitial}
 \end{figure}
 
-The Figure \ref{fig:pagenon} depicts the outcome when the model predicts that the text is not suicidal. The page displays the results of the prediction and indicates the likelihood of the prediction containing suicide ideation.
+The Figure \ref{fig:pagenon} depicts the outcome when the model predicts that the text is not suicidal. The page displays the outcome of the prediction and indicates the likelihood of the sample containing suicide ideation.
 
 \begin{figure}[h]
       \centering
@@ -1065,7 +1087,7 @@ To fulfill the objectives of the project, extensive efforts were dedicated to tr
 
 \textbf{Expanding the choice of hyperparameters}: Time constraints also influenced the hyperparameter tuning process, only a subset of hyperparameters were tuned to optimize the performance. The hyperparameter selection was limited to a narrow range, which may not fully capture the broader hyperparameter space that could yield improved results.
 
-\textbf{Applying Adversarial Learning}: During the explanation of the model, it was found that some samples that clearly did not contain suicidal ideation were incorrectly judged to be in the suicidal category. And changing just one punctuation could make a huge difference in the prediction result, which is very consistent with the characteristics of the adversarial samples. Adversarial learning\cite{2013Intriguing} can be added to the training process to effectively avoid that "small perturbations" can have a huge impact on the model output. It improves the robustness and safety of the model.
+\textbf{Applying Adversarial Learning}: During the explanation of the model, it was found that some samples that clearly did not contain suicidal ideation were incorrectly judged to be in the suicidal category. And changing just one punctuation could make a huge difference in the prediction result, which is very consistent with the characteristics of the adversarial samples. Adversarial learning\cite{2013Intriguing} can be applied to the training process to effectively avoid that "small perturbations" can have a huge impact on the model output. It improves the robustness and safety of the model.
 
 \textbf{Deploying models with more practical implications}: Lastly, the model deployment is relatively straightforward. However, there is significant potential for more sophisticated deployment strategies. The model could be deployed on a cloud service and integrated with other applications to automatically detect and analyze published text. In case where early warnings of suicide ideation are detected, system could provide immediate feedback to the backend system, enabling timely suicide intervention.
 
